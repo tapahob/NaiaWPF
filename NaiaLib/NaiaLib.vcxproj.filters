@@ -16,6 +16,15 @@
     <Filter Include="OpenGL">
       <UniqueIdentifier>{95a59ff6-8e67-41cc-bbb7-b17369834b29}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics3D">
+      <UniqueIdentifier>{b49f4dbc-d76f-4dbe-b6db-b1983ff48589}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{4a280db6-933a-416c-a52c-930c1a988c5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{5cd87475-6963-41cb-9974-5bc75f25c008}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NaiaLib.h">
@@ -33,11 +42,41 @@
     <ClInclude Include="OGLRenderer.h">
       <Filter>OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="SceneNodes.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="precompiled.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="MatrixStack.h">
+      <Filter>Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MathHelper.h">
+      <Filter>Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>Graphics3D</Filter>
+    </ClInclude>
+    <ClInclude Include="GLSLShader.h">
+      <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneWrapper.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="NaiaCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="NaiaLib.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AssemblyInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -49,6 +88,33 @@
     </ClCompile>
     <ClCompile Include="OGLRenderer.cpp">
       <Filter>OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneNodes.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="MatrixStack.cpp">
+      <Filter>Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MathHelper.cpp">
+      <Filter>Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Graphics3D</Filter>
+    </ClCompile>
+    <ClCompile Include="GLSLShader.cpp">
+      <Filter>Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneWrapper.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="NaiaCore.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,5 +129,13 @@
     <Image Include="app.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\ColorShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\ColorShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

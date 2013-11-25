@@ -1,13 +1,10 @@
-// NaiaLib.h
+#include "precompiled.h"
+// typedefs
+typedef glm::vec4 Color4;
 
-#pragma once
-
-using namespace System;
-
-namespace NaiaLib {
-
-	public ref class Class1
-	{
-		// TODO: Add your methods for this class here.
-	};
-}
+#include "Material.h"
+#include "Vertex.h"
+#include "Mesh.h"
+#include "OGLRenderer.h"
+#include "Scene.h"
+#include "SceneWrapper.h"

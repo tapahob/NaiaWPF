@@ -1,78 +1,29 @@
-#include "stdafx.h"
-#include <GL/glew.h>
-#include <GL/wglew.h>
-#include <gl/GL.h>
+#include "precompiled.h"
+#include "Scene.h"
 #include "OGLRenderer.h"
+#include "NaiaCore.h"
 
-OGLRenderer::OGLRenderer() :m_hwnd(NULL), m_RC(NULL), m_hDC(NULL)
+HGLRC g_GLMainContext = NULL;
+
+OGLRenderer::OGLRenderer(Scene* scene) : Hwnd(NULL), Hrc(NULL), Hdc(NULL)
 {
+	width = 800;
+	height = 600;
+	pScene = scene;
+	id = -1;
 }
-
 
 OGLRenderer::~OGLRenderer()
 {
 }
 
-//------------------------------------------------------------------------
-//	Initialize Extensions
-//------------------------------------------------------------------------
-bool OGLRenderer::InitializeExtensions()
-{
-	// Create a fake window
-	TCHAR szAppName [] = TEXT("fakeWindow");
-	HWND         hwnd = {0};
-	WNDCLASSEX   wndclassex = { 0 };
-	wndclassex.cbSize = sizeof(WNDCLASSEX);
-	wndclassex.style = CS_HREDRAW | CS_VREDRAW;
-	wndclassex.lpfnWndProc = DefWindowProc;
-	wndclassex.lpszClassName = szAppName;
-
-	if (!RegisterClassEx(&wndclassex))
-	{
-		MessageBox(NULL, TEXT("RegisterClassEx failed!"), szAppName, MB_ICONERROR);
-		return 0;
-	}
-
-	hwnd = CreateWindowEx(WS_EX_OVERLAPPEDWINDOW, szAppName, TEXT("WindowTitle"), WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, NULL, NULL, NULL);
-
-	ShowWindow(hwnd, SW_HIDE);
-	if (!hwnd)
-		return false;
-
-	HDC deviceContext = GetDC(hwnd);
-	PIXELFORMATDESCRIPTOR pixelFormatDescriptor = { 0 };
-
-	if (!SetPixelFormat(deviceContext, 1, &pixelFormatDescriptor))
-		return false;
-
-	// Create Old Style context
-	HGLRC renderingContext = wglCreateContext(deviceContext);
-	wglMakeCurrent(deviceContext, renderingContext);
-
-	glewExperimental = true;
-	if (glewInit() != GLEW_OK)
-		return false;
-
-	wglMakeCurrent(NULL, NULL);
-	wglDeleteContext(renderingContext);
-	DestroyWindow(hwnd);
-	UnregisterClass(szAppName, NULL);
-	return true;
-}
 
 //------------------------------------------------------------------------
 //	Initialize OpenGL
 //------------------------------------------------------------------------
 bool OGLRenderer::Initialize(HWND hwnd, int width, int height)
 {
-	m_hwnd = hwnd;
-
-	if (!InitializeExtensions())
-	{
-		OutputDebugStringA(" ########### Error: InitializeExtensions ##########\n");
-		return false;
-	}
+	Hwnd = hwnd;
 
 	int pixelFormat[1];
 	UINT formatCount;
@@ -82,8 +33,8 @@ bool OGLRenderer::Initialize(HWND hwnd, int width, int height)
 	char *vendorString, *rendererString;
 
 	
-	m_hDC = GetDC(m_hwnd);
-	if (!m_hDC)
+	Hdc = GetDC(Hwnd);
+	if (!Hdc)
 		return false;
 
 	const int pixelFormatAttribList [] =
@@ -106,11 +57,11 @@ bool OGLRenderer::Initialize(HWND hwnd, int width, int height)
 		0 // End of attributes list
 	};
 
-	result = wglChoosePixelFormatARB(m_hDC, pixelFormatAttribList, NULL, 1, pixelFormat, &formatCount);
+	result = wglChoosePixelFormatARB(Hdc, pixelFormatAttribList, NULL, 1, pixelFormat, &formatCount);
 	if (result != 1)
 		return false;
 
-	result = SetPixelFormat(m_hDC, pixelFormat[0], &pixelFormatDescriptor);
+	result = SetPixelFormat(Hdc, pixelFormat[0], &pixelFormatDescriptor);
 	if (result != 1)
 	{
 		OutputDebugStringA("ERROR: CANNOT SET PIXEL FORMAT\n");
@@ -118,18 +69,25 @@ bool OGLRenderer::Initialize(HWND hwnd, int width, int height)
 		return false;
 	}
 
+	// If main context is not yet created - create one
+	if (!g_GLMainContext)
+	{
+		g_GLMainContext = wglCreateContextAttribsARB(Hdc, 0, contextAttribs);
+		wglMakeCurrent(Hdc, g_GLMainContext);
+		NaiaCore::Instance()->LoadShaders();
+	}
 
-	m_RC = wglCreateContextAttribsARB(m_hDC, 0, contextAttribs);
-	if (!m_RC)
+	Hrc = wglCreateContextAttribsARB(Hdc, g_GLMainContext, contextAttribs);
+	if (!Hrc)
 		return false;
 
-	wglMakeCurrent(m_hDC, m_RC);
+	wglMakeCurrent(Hdc, Hrc);
 	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-	glClearDepth(1.0f);
+	/*glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glFrontFace(GL_CW);
 	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+	glCullFace(GL_BACK);*/
 
 
 	//TODO: build identity matrix
@@ -142,47 +100,60 @@ bool OGLRenderer::Initialize(HWND hwnd, int width, int height)
 	vendorString = (char*) glGetString(GL_VENDOR);
 	rendererString = (char*) glGetString(GL_RENDERER);
 
-	strcpy_s(m_videoCardDescription, vendorString);
-	strcat_s(m_videoCardDescription, " - ");
-	strcat_s(m_videoCardDescription, rendererString);
+	strcpy_s(VideoCardDescription, vendorString);
+	strcat_s(VideoCardDescription, " - ");
+	strcat_s(VideoCardDescription, rendererString);
 
 	// no vsync
-	wglSwapIntervalEXT(0);
+	wglSwapIntervalEXT(1);
+	glGenVertexArrays(1, &vao);
+	OutputDebugStringA("\n############## INITIALIZE OPENGL SUCCESS ################\n");
 
-	OutputDebugStringA("############## INITIALIZE OPENGL SUCCESS ################");
 	return true;
 }
 
 void OGLRenderer::Shutdown()
 {
-	if (m_RC)
+	if (Hrc)
 	{
 		wglMakeCurrent(NULL, NULL);
-		wglDeleteContext(m_RC);
-		m_RC = NULL;
+		wglDeleteContext(Hrc);
+		Hrc = NULL;
 	}
 
-	if (m_hDC)
+	if (Hdc)
 	{
-		ReleaseDC(m_hwnd, m_hDC);
-		m_hDC = NULL;
+		ReleaseDC(Hwnd, Hdc);
+		Hdc = NULL;
 	}
-
 	return;
 }
 
 bool OGLRenderer::Render()
 {
-	wglMakeCurrent(m_hDC, m_RC);
+	wglMakeCurrent(Hdc, Hrc);
+	glViewport(0, 0, width, height);
+	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glFlush();
-	SwapBuffers(m_hDC);
+	glBindVertexArray(vao);
+	if (pScene)
+	{
+		NaiaCore::Instance()->Shaders["ColorShader"].Use();
+		pScene->Renderer = this;
+		pScene->Render();
+		NaiaCore::Instance()->Shaders["ColorShader"].UnUse();
+	}
+	
+	SwapBuffers(Hdc);
 	return true;
 }
 
 bool OGLRenderer::Resize(int width, int height)
 {
-	glViewport(0, 0, width, height);
+	//wglMakeCurrent(Hdc, Hrc);
+	this->width = width;
+	this->height = height;
+	//glViewport(0, 0, width, height);
 	//TODO: build projection
 	return true;
 }

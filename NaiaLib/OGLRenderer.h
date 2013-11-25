@@ -1,8 +1,10 @@
 #pragma once
+#include "GLSLShader.h"
+class Scene;
 class OGLRenderer
 {
 public:
-	OGLRenderer();
+	OGLRenderer(Scene* scene);
 	OGLRenderer(const OGLRenderer&){};
 	~OGLRenderer();
 
@@ -11,14 +13,16 @@ public:
 	bool Render();
 	void Shutdown();
 
-private:
-	bool InitializeExtensions();
-
 public:
-	HWND m_hwnd;
-	HDC m_hDC;
-	HGLRC m_RC;
-
-	char m_videoCardDescription[256];
+	GLuint					vao;
+	int						id;
+	HWND                    Hwnd;
+	HDC                     Hdc;
+	HGLRC                   Hrc;
+	glm::mat4x4             WorldMatrix;
+	char                    VideoCardDescription[256];
+	map<string, GLSLShader> Shaders;
+	Scene*					pScene;
+	int width, height;
 };
 
