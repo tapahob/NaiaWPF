@@ -83,6 +83,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EditorCore.h" />
     <ClInclude Include="GLSLShader.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MathHelper.h" />
@@ -102,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="EditorCore.cpp" />
     <ClCompile Include="GLSLShader.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MathHelper.cpp" />

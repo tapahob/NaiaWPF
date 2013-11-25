@@ -23,6 +23,14 @@ SceneNode::~SceneNode()
 {
 }
 
+void SceneNode::Destroy()
+{
+	for (auto it = children.begin(); it != children.end(); it++)
+		(*it)->Destroy();
+
+	children.clear();
+}
+
 void SceneNode::Update(float deltaMs)
 {
 	for (unsigned int i = 0; i < children.size(); i++)
@@ -102,7 +110,6 @@ void CameraNode::Render()
 MeshNode::MeshNode(Scene* scene)
 : SceneNode(scene)
 {
-
 	Properties.Name = "Unknown Mesh Node";
 
 	Mesh::SubMesh triangle;
@@ -110,9 +117,7 @@ MeshNode::MeshNode(Scene* scene)
 	std::vector<VertexTexturedLit> vertices =
 	{
 		VertexTexturedLit(glm::vec3(1.0f), glm::vec3(0.0f), glm::vec2(1.0f)),
-
 		VertexTexturedLit(glm::vec3(1.0f, -1.0f, 1.0f), glm::vec3(0.0f), glm::vec2(1.0f)),
-
 		VertexTexturedLit(glm::vec3(-1.0f, -1.0f, 1.0f), glm::vec3(0.0f), glm::vec2(1.0f)),
 	};
 
@@ -138,5 +143,11 @@ void MeshNode::PostRender()
 {
 	//m_Scene->Renderer->Shaders["ColorShader"].UnUse();
 	SceneNode::PostRender();
+}
+
+void MeshNode::Destroy()
+{
+	SceneNode::Destroy();
+	mesh.Destroy();
 }
 

@@ -13,17 +13,13 @@ namespace NaiaWPF
         {
             InitializeComponent();
             this.Loaded += MainWindow_Loaded;
-            this.Closed += MainWindow_Closed;
         }
 
-        void MainWindow_Closed(object sender, EventArgs e)
-        {
-            
-        }
 
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            NaiaLib.EditorCore.Instance.Initialize();
             NaiaLib.SceneWrapper.Init();
 
             WinFormsHost1.Child = new OpenGLControl();
@@ -31,12 +27,17 @@ namespace NaiaWPF
             WinFormsHost3.Child = new OpenGLControl();
             WinFormsHost4.Child = new OpenGLControl();
 
-            NaiaLib.SceneWrapper.StartMainLoop();
+            NaiaLib.EditorCore.Instance.StartMainLoop();
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             NaiaLib.SceneWrapper.AddMeshNode();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            NaiaLib.EditorCore.Instance.Shutdown();
         }
     }
 }

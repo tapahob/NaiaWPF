@@ -4,24 +4,25 @@
 class Mesh
 {
 public:
-	Mesh();
-	~Mesh();
-
-	void Render();
-
 	struct SubMesh
 	{
 		SubMesh();
 		~SubMesh();
 
 		bool Init(const std::vector<VertexTexturedLit>& vertices, const std::vector<unsigned int>& Indices);
+		void Destroy();
 
-		GLuint VAO;
 		GLuint VertexBuffer;
 		GLuint IndexBuffer;
 		int NumIndices;
 	};
 
+	Mesh();
+	~Mesh();
+
+public:
+	void Render();
+	void Destroy();
 
 public:
 	std::vector<SubMesh> SubMeshes;

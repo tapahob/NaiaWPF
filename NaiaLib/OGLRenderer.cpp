@@ -105,18 +105,20 @@ bool OGLRenderer::Initialize(HWND hwnd, int width, int height)
 	strcat_s(VideoCardDescription, rendererString);
 
 	// no vsync
-	wglSwapIntervalEXT(1);
+	wglSwapIntervalEXT(0);
 	glGenVertexArrays(1, &vao);
-	OutputDebugStringA("\n############## INITIALIZE OPENGL SUCCESS ################\n");
+	OutputDebugStringA(" SUCCESS ################\n");
 
 	return true;
 }
 
 void OGLRenderer::Shutdown()
 {
+	glBindVertexArray(NULL);
+	glDeleteVertexArrays(1, &vao);
+
 	if (Hrc)
 	{
-		wglMakeCurrent(NULL, NULL);
 		wglDeleteContext(Hrc);
 		Hrc = NULL;
 	}

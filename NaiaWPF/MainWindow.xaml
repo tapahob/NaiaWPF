@@ -4,7 +4,7 @@
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:naia="clr-namespace:NaiaLib;assembly=NaiaLib"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="MainWindow" Height="720" Width="1280" Closed="Window_Closed">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="32"/>

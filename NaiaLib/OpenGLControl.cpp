@@ -26,7 +26,7 @@ namespace NaiaLib
 		m_OpenGL = new OGLRenderer(SceneWrapper::pScene);
 		HWND hwnd = (HWND) Handle.ToPointer();
 
-		OutputDebugStringA("\n############# INITIALIZING OPENGL ################\n");
+		OutputDebugStringA("\n############# INITIALIZING OPENGL ............... ");
 
 		if (!m_OpenGL->Initialize(hwnd, this->Width, this->Height))
 			return;

@@ -23,6 +23,6 @@ public:
 	char                    VideoCardDescription[256];
 	map<string, GLSLShader> Shaders;
 	Scene*					pScene;
-	int width, height;
+	int						width, height;
 };
 

@@ -41,6 +41,7 @@ public:
 	virtual bool IsVisible();
 	virtual void AddChild(SceneNode* kid);
 	virtual void RemoveChild(SceneNode* kid);
+	virtual void Destroy();
 
 public:
 	SceneNodeProperties Properties;
@@ -58,7 +59,7 @@ class CameraNode : public SceneNode
 public:
 	CameraNode(Scene* scene);
 
-	virtual void Render() ;
+	virtual void Render();
 
 private:
 	glm::vec3 Position();
@@ -79,10 +80,10 @@ class MeshNode : public SceneNode
 public:
 	MeshNode(Scene* scene);
 
-	virtual void PreRender() ;
-	virtual void Render() ;
-	virtual void PostRender() ;
-
+	virtual void PreRender();
+	virtual void Render();
+	virtual void PostRender();
+	virtual void Destroy();
 private:
 	Mesh mesh;
 };

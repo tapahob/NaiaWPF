@@ -5,6 +5,9 @@
 
 extern HGLRC g_GLMainContext;
 
+//------------------------------------------------------------------------
+//	Mesh
+//------------------------------------------------------------------------
 Mesh::Mesh()
 {
 }
@@ -31,6 +34,20 @@ void Mesh::Render()
 	glDisableVertexAttribArray(0);
 }
 
+void Mesh::Destroy()
+{
+	glBindBuffer(GL_ARRAY_BUFFER,         NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, NULL);
+
+	for (auto it = SubMeshes.begin(); it != SubMeshes.end(); it++)
+		it->Destroy();
+
+	SubMeshes.clear();
+}
+
+//------------------------------------------------------------------------
+//	SubMesh
+//------------------------------------------------------------------------
 bool Mesh::SubMesh::Init(const std::vector<VertexTexturedLit>& vertices, const std::vector<unsigned int>& indices)
 {	
 	auto hdc = NaiaCore::Instance()->Windows[0]->Hdc;
@@ -56,4 +73,10 @@ Mesh::SubMesh::SubMesh()
 Mesh::SubMesh::~SubMesh()
 {
 
+}
+
+void Mesh::SubMesh::Destroy()
+{
+	glDeleteBuffers(1, &VertexBuffer);
+	glDeleteBuffers(1, &IndexBuffer);
 }

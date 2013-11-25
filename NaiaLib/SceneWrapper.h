@@ -9,14 +9,11 @@ namespace NaiaLib
 		static void Init();
 		static void Destroy();
 		static void AddMeshNode();
-
-		static void StartMainLoop();
 		
 	public:
 		static Scene* pScene = NULL;
 
 	private:
 		SceneWrapper();
-		static void loop();
 	};
 }

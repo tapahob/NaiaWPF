@@ -1,6 +1,6 @@
 #include "precompiled.h"
-// typedefs
 typedef glm::vec4 Color4;
+extern HGLRC g_GLMainContext;
 
 #include "Material.h"
 #include "Vertex.h"

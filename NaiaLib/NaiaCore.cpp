@@ -33,7 +33,20 @@ void NaiaCore::Initialize()
 
 void NaiaCore::Shutdown()
 {
+	wglMakeCurrent(Windows[0]->Hdc, g_GLMainContext);
+
+	for (auto it = Windows.begin(); it != Windows.end(); it++)
+		it->second->Shutdown();
+
+	NaiaLib::SceneWrapper::Destroy();
 	DestroyShaders();
+
+	wglMakeCurrent(NULL, NULL);
+	if (g_GLMainContext)
+	{
+		wglDeleteContext(g_GLMainContext);
+		g_GLMainContext = NULL;
+	}
 }
 
 //------------------------------------------------------------------------

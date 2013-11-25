@@ -14,6 +14,7 @@ public:
 	void PushAndSetMatrix(glm::mat4x4 matrix);
 	void PopMatrix();
 	void Render() { RootNode.Render(); };
+	void Destroy() { RootNode.Destroy(); };
 
 private:
 	glm::mat4x4 getTopMatrix();
