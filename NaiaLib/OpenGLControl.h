@@ -4,7 +4,7 @@ using namespace System::Windows::Forms;
 
 namespace NaiaLib
 {
-	public ref class OpenGLControl : public UserControl
+	public ref class OpenGLControl : public System::Windows::Forms::UserControl
 	{
 	public:
 		OpenGLControl();

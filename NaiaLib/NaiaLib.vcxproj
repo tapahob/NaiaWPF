@@ -85,12 +85,14 @@
   <ItemGroup>
     <ClInclude Include="EditorCore.h" />
     <ClInclude Include="GLSLShader.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MathHelper.h" />
     <ClInclude Include="MatrixStack.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="NaiaCore.h" />
     <ClInclude Include="NaiaLib.h" />
+    <ClInclude Include="NaiaTimer.h" />
     <ClInclude Include="OGLRenderer.h" />
     <ClInclude Include="OpenGLControl.h" />
     <ClInclude Include="precompiled.h" />
@@ -105,6 +107,7 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="EditorCore.cpp" />
     <ClCompile Include="GLSLShader.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MathHelper.cpp" />
     <ClCompile Include="MatrixStack.cpp" />
@@ -112,6 +115,7 @@
     <ClCompile Include="NaiaCore.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</CompileAsManaged>
     </ClCompile>
+    <ClCompile Include="NaiaTimer.cpp" />
     <ClCompile Include="OGLRenderer.cpp" />
     <ClCompile Include="OpenGLControl.cpp" />
     <ClCompile Include="Scene.cpp" />

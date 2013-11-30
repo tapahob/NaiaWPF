@@ -34,6 +34,9 @@ namespace NaiaLib
 		NaiaCore::Instance()->AddWindow(m_OpenGL);
 
 		m_OpenGL->Resize(this->Width, this->Height);
+
+		auto hdc = NaiaCore::Instance()->Windows[0]->Hdc;
+		wglMakeCurrent(hdc, g_GLMainContext);
 	}
 
 	void NaiaLib::OpenGLControl::OnSizeChanged(System::Object ^sender, System::EventArgs ^e)

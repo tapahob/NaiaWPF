@@ -2,6 +2,7 @@
 #include "Vertex.h"
 #include "Mesh.h"
 #include "NaiaCore.h"
+#include "SceneWrapper.h"
 
 extern HGLRC g_GLMainContext;
 
@@ -19,7 +20,13 @@ Mesh::~Mesh()
 
 void Mesh::Render()
 {
+	auto renderer = NaiaLib::SceneWrapper::pScene->Renderer;
+	auto camera = NaiaLib::SceneWrapper::pScene->Camera;
+	auto MVP = renderer->ProjectionMatrix * camera->ViewMatrix * renderer->WorldMatrix;
+
 	glEnableVertexAttribArray(0);
+
+	glUniformMatrix4fv(NaiaCore::Instance()->Shaders["ColorShader"]("MVP"), 1, GL_FALSE, &MVP[0][0]);
 
 	for (unsigned int i = 0; i < SubMeshes.size(); i++)
 	{

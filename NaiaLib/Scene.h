@@ -21,6 +21,7 @@ private:
 
 public:
 	SceneNode RootNode;
+	CameraNode* Camera;
 	std::map<int, SceneNode*> SceneNodeList;
 	int idCounter;
 	OGLRenderer* Renderer;

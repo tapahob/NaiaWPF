@@ -6,7 +6,7 @@ namespace NaiaLib
 	public ref class EditorCore
 	{
 	public:
-		bool Initialize();
+		bool Initialize(System::IntPtr hInstance, System::IntPtr hwnd);
 		void StartMainLoop();
 		void Shutdown();
 

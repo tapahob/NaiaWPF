@@ -20,8 +20,9 @@ public:
 	HDC                     Hdc;
 	HGLRC                   Hrc;
 	glm::mat4x4             WorldMatrix;
+	glm::mat4x4				MVP;
+	glm::mat4x4				ProjectionMatrix;
 	char                    VideoCardDescription[256];
-	map<string, GLSLShader> Shaders;
 	Scene*					pScene;
 	int						width, height;
 };

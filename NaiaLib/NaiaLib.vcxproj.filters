@@ -25,6 +25,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{5cd87475-6963-41cb-9974-5bc75f25c008}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{93129599-a384-42b9-8a07-bba6f382bc24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NaiaLib.h">
@@ -78,6 +81,12 @@
     <ClInclude Include="EditorCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="NaiaTimer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -120,6 +129,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EditorCore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="NaiaTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

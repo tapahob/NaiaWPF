@@ -1,6 +1,6 @@
 #include "precompiled.h"
 #include "GLSLShader.h"
-
+#include "NaiaCore.h"
 GLSLShader::GLSLShader()
 {
 	totalShaders             = 0;

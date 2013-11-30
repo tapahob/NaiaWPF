@@ -2,8 +2,6 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
-        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
-        xmlns:naia="clr-namespace:NaiaLib;assembly=NaiaLib"
         Title="MainWindow" Height="720" Width="1280" Closed="Window_Closed">
     <Grid>
         <Grid.RowDefinitions>
@@ -68,12 +66,8 @@
                     <ad:LayoutPanel Orientation="Vertical" DockWidth="250">
                         <ad:LayoutAnchorablePane>
                             <ad:LayoutAnchorable Title="Scene">
-                                <TreeView>
-                                    <TreeViewItem Header="Root">
-                                        <TreeViewItem Header="ParentItem1">
-                                            <TreeViewItem Header="ParentItem1"/>
-                                            <TreeViewItem Header="ParentItem1"/>
-                                        </TreeViewItem>
+                                <TreeView x:Name="SceneTreeView">
+                                    <TreeViewItem Header="Root" x:Name="SceneTreeRoot">
                                     </TreeViewItem>
                                 </TreeView>
                             </ad:LayoutAnchorable>

@@ -1,12 +1,18 @@
 #include "precompiled.h"
 #include "Scene.h"
 #include "OGLRenderer.h"
+#include "MathHelper.h"
 
-Scene::Scene()// : //RootNode(this), idCounter(0)
+Scene::Scene()
 {
 	idCounter = 0;
 	RootNode = SceneNode(this);
 	RootNode.Properties.Name = "RootNode";
+
+	Camera = new CameraNode(this);
+	Camera->Properties.Name = "Default Camera";
+	MathHelper::SetPosition(Camera->Properties.ToWorld, glm::vec3(4.0f, 4.1f, -1.0f));
+	RootNode.children.push_back(Camera);
 }
 
 Scene::~Scene()

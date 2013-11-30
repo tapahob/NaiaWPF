@@ -90,6 +90,7 @@ void SceneNode::RemoveChild(SceneNode* kid)
 CameraNode::CameraNode(Scene* scene)
 : SceneNode(scene)
 {
+	Target = glm::vec3(1.0f);
 }
 
 void CameraNode::Render()
@@ -98,8 +99,11 @@ void CameraNode::Render()
 	MathHelper::SetPosition(rotation, glm::vec3(0.0f));
 	glm::vec3 up = glm::vec3(rotation * glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
 	auto position = MathHelper::GetPosition(Properties.ToWorld);
-	LookAt = Target - position;
-	ViewMatrix = glm::lookAt(position, LookAt, up);
+	ViewMatrix = glm::lookAt(position, Target, up);
+
+	auto renderer = NaiaLib::SceneWrapper::pScene->Renderer;
+	renderer->MVP = renderer->WorldMatrix * ViewMatrix * renderer->ProjectionMatrix;
+
 	SceneNode::Render();
 }
 
@@ -129,7 +133,6 @@ MeshNode::MeshNode(Scene* scene)
 
 void MeshNode::PreRender()
 {
-	m_Scene->Renderer->Shaders["ColorShader"].Use();
 	SceneNode::PreRender();
 }
 
@@ -141,7 +144,6 @@ void MeshNode::Render()
 
 void MeshNode::PostRender()
 {
-	//m_Scene->Renderer->Shaders["ColorShader"].UnUse();
 	SceneNode::PostRender();
 }
 

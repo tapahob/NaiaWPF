@@ -29,11 +29,14 @@ void NaiaCore::Initialize()
 	}
 
 	LoadShaders();
+
+	if (!Timer.Initialize())
+		OutputDebugStringA("\n ########### Error: Initialize TIMER ##########\n");
 }
 
 void NaiaCore::Shutdown()
 {
-	wglMakeCurrent(Windows[0]->Hdc, g_GLMainContext);
+	/*wglMakeCurrent(Windows[0]->Hdc, g_GLMainContext);*/
 
 	for (auto it = Windows.begin(); it != Windows.end(); it++)
 		it->second->Shutdown();
@@ -109,7 +112,10 @@ bool NaiaCore::LoadShaders()
 	colorShader.CreateAndLinkProgram();
 
 	colorShader.Use();
-	colorShader.AddAttribute("Position");
+		colorShader.AddAttribute("Position");
+		colorShader.AddAttribute("TexCoords");
+		colorShader.AddAttribute("Normal");
+		colorShader.AddUniform("MVP");
 	colorShader.UnUse();
 
 	Shaders["ColorShader"] = colorShader;
@@ -137,6 +143,7 @@ void NaiaCore::Render()
 
 void NaiaCore::Update()
 {
+	Timer.Update();
 	return;
 }
 

@@ -11,6 +11,7 @@ OGLRenderer::OGLRenderer(Scene* scene) : Hwnd(NULL), Hrc(NULL), Hdc(NULL)
 	height = 600;
 	pScene = scene;
 	id = -1;
+	WorldMatrix = glm::mat4x4(1.0f);
 }
 
 OGLRenderer::~OGLRenderer()
@@ -90,12 +91,10 @@ bool OGLRenderer::Initialize(HWND hwnd, int width, int height)
 	glCullFace(GL_BACK);*/
 
 
-	//TODO: build identity matrix
-
 	FOV = 3.14159265358979323846f / 4.0f;
 	aspect = (float) width / (float) height;
 
-	//TODO: build perspective projection
+	ProjectionMatrix = glm::perspective(FOV, aspect, 0.1f, 1000.0f);
 
 	vendorString = (char*) glGetString(GL_VENDOR);
 	rendererString = (char*) glGetString(GL_RENDERER);
@@ -107,8 +106,8 @@ bool OGLRenderer::Initialize(HWND hwnd, int width, int height)
 	// no vsync
 	wglSwapIntervalEXT(0);
 	glGenVertexArrays(1, &vao);
-	OutputDebugStringA(" SUCCESS ################\n");
-
+	OutputDebugStringA(" SUCCESS ################\n");	
+	wglMakeCurrent(Hdc, g_GLMainContext);
 	return true;
 }
 
@@ -140,10 +139,11 @@ bool OGLRenderer::Render()
 	glBindVertexArray(vao);
 	if (pScene)
 	{
-		NaiaCore::Instance()->Shaders["ColorShader"].Use();
+		auto shader = NaiaCore::Instance()->Shaders["ColorShader"];
+		shader.Use();	
 		pScene->Renderer = this;
 		pScene->Render();
-		NaiaCore::Instance()->Shaders["ColorShader"].UnUse();
+		shader.UnUse();
 	}
 	
 	SwapBuffers(Hdc);

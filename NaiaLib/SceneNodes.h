@@ -45,10 +45,11 @@ public:
 
 public:
 	SceneNodeProperties Properties;
+	vector<SceneNode*> children;
 
 protected:
 	Scene* m_Scene;
-	vector<SceneNode*> children;
+	
 };
 
 //------------------------------------------------------------------------

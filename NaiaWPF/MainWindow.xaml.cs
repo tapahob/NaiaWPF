@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Interop;
 using NaiaLib;
 
 namespace NaiaWPF
@@ -9,18 +12,24 @@ namespace NaiaWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
+
         public MainWindow()
         {
             InitializeComponent();
             this.Loaded += MainWindow_Loaded;
         }
 
-
-
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            NaiaLib.EditorCore.Instance.Initialize();
+            IntPtr windowHandle = new WindowInteropHelper(this).EnsureHandle();
+            IntPtr appHandle = Marshal.GetHINSTANCE(typeof(App).Module);
+
+            NaiaLib.EditorCore.Instance.Initialize(appHandle, windowHandle);
             NaiaLib.SceneWrapper.Init();
+
+            System.Windows.Controls.TreeViewItem a = SceneTreeRoot;
 
             WinFormsHost1.Child = new OpenGLControl();
             WinFormsHost2.Child = new OpenGLControl();
@@ -33,6 +42,7 @@ namespace NaiaWPF
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             NaiaLib.SceneWrapper.AddMeshNode();
+            NaiaLib.SceneWrapper.UpdateSceneWindow(SceneTreeRoot);
         }
 
         private void Window_Closed(object sender, EventArgs e)

@@ -1,5 +1,6 @@
 #pragma once
 #include "GLSLShader.h"
+#include "NaiaTimer.h"
 
 class NaiaCore
 {
@@ -20,12 +21,10 @@ protected:
 	void Loop();
 	bool initializeExtensions();
 
-private:
-
 public:
 	map<string, GLSLShader> Shaders;
 	map<int, OGLRenderer*> Windows;
-
+	Time Timer;
 private:
 	static NaiaCore* instance;
 	int renderCounter;
