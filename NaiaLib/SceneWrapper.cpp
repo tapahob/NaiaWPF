@@ -25,10 +25,41 @@ void NaiaLib::SceneWrapper::AddMeshNode()
 	if (!pScene)
 		return;
 
-	pScene->RootNode.AddChild(new MeshNode(pScene));
+	float gridScale = 0.1f;
 
-	auto newMeshNode = new MeshNode(pScene);
-	MathHelper::SetPosition(newMeshNode->Properties.ToWorld, glm::vec3(0.0f, 0.5f, 1.0f));
+	auto naiaCore = NaiaCore::Instance();
+	
+	auto newMeshNode = new MeshNode(pScene, MeshNode::LineGridXZ);
+	newMeshNode->RenderWindow = 2;
+	MathHelper::SetPosition(newMeshNode->Properties.ToWorld, glm::vec3(0.0f, -100.0f, 0.0f));
+	MathHelper::SetScale(newMeshNode->Properties.ToWorld, glm::vec3(gridScale, gridScale, gridScale));
+	//naiaCore->Windows[2]->Camera->AddChild(newMeshNode);
+	pScene->RootNode.AddChild(newMeshNode);
+
+	newMeshNode = new MeshNode(pScene, MeshNode::LineGridXY);
+	newMeshNode->RenderWindow = 1;
+	MathHelper::SetPosition(newMeshNode->Properties.ToWorld, glm::vec3(0.0f, 0.0f, -100.0f));
+	MathHelper::SetScale(newMeshNode->Properties.ToWorld, glm::vec3(gridScale, gridScale, gridScale));
+	//naiaCore->Windows[1]->Camera->AddChild(newMeshNode);
+	pScene->RootNode.AddChild(newMeshNode);
+
+	newMeshNode = new MeshNode(pScene, MeshNode::LineGridZY);
+	newMeshNode->RenderWindow = 0;
+	MathHelper::SetPosition(newMeshNode->Properties.ToWorld, glm::vec3(-100.0f, 0.0f, 0.0f));
+	MathHelper::SetScale(newMeshNode->Properties.ToWorld, glm::vec3(gridScale, gridScale, gridScale));
+	//naiaCore->Windows[0]->Camera->AddChild(newMeshNode);
+	pScene->RootNode.AddChild(newMeshNode);
+
+	/*newMeshNode = new MeshNode(pScene, MeshNode::TriangleGrid);
+	newMeshNode->Properties.Name = "Floor";
+	MathHelper::SetPosition(newMeshNode->Properties.ToWorld, glm::vec3(0.0f, 0.0f, 0.0f));
+	MathHelper::SetScale(newMeshNode->Properties.ToWorld, glm::vec3(0.5f, 0.5f, 0.5f));
+	pScene->RootNode.AddChild(newMeshNode);*/
+
+	newMeshNode = new MeshNode(pScene, MeshNode::None);
+	newMeshNode->Properties.Name = "Cube";
+	MathHelper::SetPosition(newMeshNode->Properties.ToWorld, glm::vec3(0.0f, 0.0f, 0.0f));
+	MathHelper::SetScale(newMeshNode->Properties.ToWorld, glm::vec3(3.0f, 3.0f, -3.0f));
 	pScene->RootNode.AddChild(newMeshNode);
 }
 

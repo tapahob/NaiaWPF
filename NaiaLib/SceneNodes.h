@@ -1,6 +1,7 @@
 #pragma once
 #include "Material.h"
 #include "Mesh.h"
+#include "PMXLoader.h"
 
 struct SceneNodeProperties
 {
@@ -18,7 +19,6 @@ struct SceneNodeProperties
 	glm::mat4x4 FromWorld;
 
 	bool		HasAlpha;
-	Material	Material;
 };
 
 class Scene;
@@ -49,7 +49,6 @@ public:
 
 protected:
 	Scene* m_Scene;
-	
 };
 
 //------------------------------------------------------------------------
@@ -79,12 +78,30 @@ private:
 class MeshNode : public SceneNode
 {
 public:
-	MeshNode(Scene* scene);
+	enum MeshType 
+	{ 
+		None, 
+		TriangleGrid, 
+		LineGridXZ,
+		LineGridXY,
+		LineGridZY
+	};
+	
+	MeshNode(Scene* scene, MeshType type);
 
 	virtual void PreRender();
 	virtual void Render();
 	virtual void PostRender();
 	virtual void Destroy();
+	virtual bool IsVisible();
+
+	bool LoadFromFile(std::string path);
+private:
+	bool LoadPMX(std::string path);
+
+public:
+	int RenderWindow;
+
 private:
 	Mesh mesh;
 };

@@ -3,8 +3,6 @@
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
 
-
-
 namespace NaiaLib
 {
 	class Input
@@ -19,6 +17,7 @@ namespace NaiaLib
 
 		void GetMouseLocation(int& x, int& y);
 		bool IsKeyDown(unsigned char key);
+		bool IsMouseKeyDown(unsigned char key);
 
 	private:
 		Input();

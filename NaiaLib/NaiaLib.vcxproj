@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{43B9141B-23E4-4D36-9C61-6F599270B7D8}</ProjectGuid>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>NaiaLib</RootNamespace>
   </PropertyGroup>
@@ -20,7 +20,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CLRSupport>true</CLRSupport>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -43,8 +43,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Dev\OpenGL stuff\glm-0.9.4.6\glm;D:\Dev\OpenGL stuff\glew-1.10.0-win32\glew-1.10.0\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Dev\OpenGL stuff\glew-1.10.0-win32\glew-1.10.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Dev\OpenGL stuff\glm-0.9.4.6\glm;D:\Dev\OpenGL stuff\glew-1.10.0-win32\glew-1.10.0\include\;C:\Users\tapahob\Downloads\assimp-gsoc2012-fbx-master\assimp-gsoc2012-fbx-master\include;C:\Users\tapahob\Downloads\libiconv-1.9.2-1-lib\include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Dev\OpenGL stuff\glew-1.10.0-win32\glew-1.10.0\lib\Release\Win32;C:\Users\tapahob\Downloads\assimp-gsoc2012-fbx-master\assimp-gsoc2012-fbx-master\lib\Debug;C:\Users\tapahob\Downloads\libiconv-1.9.2-1-lib\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -53,12 +53,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimpD.lib;opengl32.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -95,13 +95,20 @@
     <ClInclude Include="NaiaTimer.h" />
     <ClInclude Include="OGLRenderer.h" />
     <ClInclude Include="OpenGLControl.h" />
+    <ClInclude Include="PMXFormat.h" />
+    <ClInclude Include="PMXLoader.h" />
     <ClInclude Include="precompiled.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneNodes.h" />
     <ClInclude Include="SceneWrapper.h" />
+    <ClInclude Include="stb_image.h" />
     <ClInclude Include="Stdafx.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="VMDConverter.h" />
+    <ClInclude Include="VMDFormat.h" />
+    <ClInclude Include="VMDLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
@@ -118,13 +125,19 @@
     <ClCompile Include="NaiaTimer.cpp" />
     <ClCompile Include="OGLRenderer.cpp" />
     <ClCompile Include="OpenGLControl.cpp" />
+    <ClCompile Include="PMXFormat.cpp" />
+    <ClCompile Include="PMXLoader.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneNodes.cpp" />
     <ClCompile Include="SceneWrapper.cpp" />
+    <ClCompile Include="stb_image.cpp" />
     <ClCompile Include="Stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="VMDConverter.cpp" />
+    <ClCompile Include="VMDLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

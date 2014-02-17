@@ -15,18 +15,18 @@ public:
 	void PopMatrix();
 	void Render() { RootNode.Render(); };
 	void Destroy() { RootNode.Destroy(); };
+	
+	CameraNode* Camera();
 
 private:
 	glm::mat4x4 getTopMatrix();
 
 public:
 	SceneNode RootNode;
-	CameraNode* Camera;
 	std::map<int, SceneNode*> SceneNodeList;
 	int idCounter;
 	OGLRenderer* Renderer;
 
 private:
 	MatrixStack stack;
-	
 };

@@ -3,6 +3,7 @@
 #include "OpenGLControl.h"
 #include "SceneWrapper.h"
 #include "NaiaCore.h"
+#include "EditorCore.h"
 
 namespace NaiaLib
 {
@@ -19,6 +20,12 @@ namespace NaiaLib
 			this->m_OpenGL->Shutdown();
 			this->m_OpenGL = NULL;
 		}
+	}
+
+	void OpenGLControl::OnClick(EventArgs^ e)
+	{
+		cout << "Setting Active renderer: " << m_OpenGL->id << endl;
+		NaiaLib::EditorCore::Instance->activeRenderer = m_OpenGL->id;
 	}
 
 	void NaiaLib::OpenGLControl::OnLoad(System::Object ^sender, System::EventArgs ^e)

@@ -12,7 +12,6 @@ public:
 	void Pop();
 	void MultiplyMatrixLocal(glm::mat4x4& matrix);
 
-
 public:
 	glm::mat4x4 Top;
 	vector<glm::mat4x4> Stack;

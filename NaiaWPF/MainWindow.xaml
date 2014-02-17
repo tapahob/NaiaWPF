@@ -37,12 +37,12 @@
                         <ad:LayoutPanel Orientation="Horizontal">
                             <ad:LayoutDocumentPaneGroup>
                                 <ad:LayoutDocumentPane DockWidth="300">
-                                    <ad:LayoutDocument Title="Left">
+                                    <ad:LayoutDocument Title="Side">
                                         <WindowsFormsHost Name="WinFormsHost1"/>
                                     </ad:LayoutDocument>
                                 </ad:LayoutDocumentPane>
                                 <ad:LayoutDocumentPane DockWidth="300">
-                                    <ad:LayoutDocument Title="Right">
+                                    <ad:LayoutDocument Title="Front">
                                         <WindowsFormsHost Name="WinFormsHost2"/>
                                     </ad:LayoutDocument>
                                 </ad:LayoutDocumentPane>

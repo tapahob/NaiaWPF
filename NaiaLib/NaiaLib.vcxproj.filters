@@ -28,6 +28,12 @@
     <Filter Include="Input">
       <UniqueIdentifier>{93129599-a384-42b9-8a07-bba6f382bc24}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics3D\PMX">
+      <UniqueIdentifier>{912263bb-e30e-4c93-a6e9-4a29969fefff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics3D\VMD">
+      <UniqueIdentifier>{c3aa2154-8cbc-4048-8607-2be8ee5b7996}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="NaiaLib.h">
@@ -87,6 +93,27 @@
     <ClInclude Include="NaiaTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PMXFormat.h">
+      <Filter>Graphics3D\PMX</Filter>
+    </ClInclude>
+    <ClInclude Include="PMXLoader.h">
+      <Filter>Graphics3D\PMX</Filter>
+    </ClInclude>
+    <ClInclude Include="VMDFormat.h">
+      <Filter>Graphics3D\VMD</Filter>
+    </ClInclude>
+    <ClInclude Include="VMDLoader.h">
+      <Filter>Graphics3D\VMD</Filter>
+    </ClInclude>
+    <ClInclude Include="VMDConverter.h">
+      <Filter>Graphics3D\VMD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -136,6 +163,24 @@
     </ClCompile>
     <ClCompile Include="NaiaTimer.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="PMXFormat.cpp">
+      <Filter>Graphics3D\PMX</Filter>
+    </ClCompile>
+    <ClCompile Include="PMXLoader.cpp">
+      <Filter>Graphics3D\PMX</Filter>
+    </ClCompile>
+    <ClCompile Include="VMDLoader.cpp">
+      <Filter>Graphics3D\VMD</Filter>
+    </ClCompile>
+    <ClCompile Include="VMDConverter.cpp">
+      <Filter>Graphics3D\VMD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

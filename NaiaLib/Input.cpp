@@ -47,7 +47,7 @@ bool NaiaLib::Input::Initialize(HINSTANCE hInstance, HWND hwnd)
 	if (FAILED(result))
 		return false;
 
-	result = m_keyboard->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
+	result = m_keyboard->SetCooperativeLevel(hwnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 	if (FAILED(result))
 		return false;
 
@@ -192,6 +192,14 @@ NaiaLib::Input* NaiaLib::Input::Instance()
 		NaiaLib::Input::instance = new NaiaLib::Input();
 
 	return NaiaLib::Input::instance;
+}
+
+bool NaiaLib::Input::IsMouseKeyDown(unsigned char key)
+{
+	if (m_mouseState.rgbButtons[key] & 0x80)
+		return true;
+	else
+		return false;
 }
 
 

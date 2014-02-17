@@ -84,17 +84,29 @@ bool OGLRenderer::Initialize(HWND hwnd, int width, int height)
 
 	wglMakeCurrent(Hdc, Hrc);
 	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-	/*glClearDepth(1.0f);
-	glEnable(GL_DEPTH_TEST);
+
+	glClearDepth(1.0f);
 	glFrontFace(GL_CW);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);*/
+	glCullFace(GL_BACK);
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_TRUE);
+	glDepthFunc(GL_LEQUAL);
+	glDepthRange(0.0f, 1.0f);
 
 
 	FOV = 3.14159265358979323846f / 4.0f;
 	aspect = (float) width / (float) height;
 
-	ProjectionMatrix = glm::perspective(FOV, aspect, 0.1f, 1000.0f);
+	if (State.UsePerspective)
+		ProjectionMatrix = glm::perspective(FOV, aspect, 0.1f, 1000.0f);
+	else
+	{
+		float halfWidth = (float) width / 2.0f;
+		float halfHeight = (float) height / 2.0f;
+		float zoom = 0.5f;
+		ProjectionMatrix = glm::ortho(-halfWidth * zoom, halfWidth * zoom, halfHeight * zoom, -halfHeight * zoom, 0.1f, 1000.0f);
+	}
+
 
 	vendorString = (char*) glGetString(GL_VENDOR);
 	rendererString = (char*) glGetString(GL_RENDERER);
@@ -134,7 +146,8 @@ bool OGLRenderer::Render()
 {
 	wglMakeCurrent(Hdc, Hrc);
 	glViewport(0, 0, width, height);
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.17f, 0.17f, 0.17f, 1.0f);
+	glClearDepth(1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glBindVertexArray(vao);
 	if (pScene)
@@ -152,10 +165,20 @@ bool OGLRenderer::Render()
 
 bool OGLRenderer::Resize(int width, int height)
 {
-	//wglMakeCurrent(Hdc, Hrc);
 	this->width = width;
 	this->height = height;
-	//glViewport(0, 0, width, height);
-	//TODO: build projection
+
+	float FOV = 3.14159265358979323846f / 4.0f * 4.0f;
+	float aspect = (float) width / (float) height;
+
+	if (State.UsePerspective)
+		ProjectionMatrix = glm::perspective(FOV, aspect, 10.0f, 100000.0f);
+	else
+	{		
+		float halfWidth = (float) width / 2.0f;
+		float halfHeight = (float) height / 2.0f;
+		float zoom = 0.1f;
+		ProjectionMatrix = glm::ortho(-halfWidth * zoom, halfWidth * zoom, -halfHeight * zoom, halfHeight * zoom, 0.1f, 1000.0f);
+	}
 	return true;
 }

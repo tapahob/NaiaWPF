@@ -11,12 +11,14 @@ namespace NaiaLib
 		virtual ~OpenGLControl();
 		virtual void OnPaintBackground(PaintEventArgs^ e) override {}
 		virtual void OnPaint(PaintEventArgs^ e) override;
+		virtual void OnClick(EventArgs^ e) override;
 
 	private:
 		OGLRenderer *m_OpenGL;
 		System::ComponentModel::Container^ components;
 		void OnLoad(System::Object ^sender, System::EventArgs ^e);
 		void OnSizeChanged(System::Object ^sender, System::EventArgs ^e);
+
 	};
 }
 
